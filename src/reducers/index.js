@@ -3,16 +3,16 @@
 import { combineReducers } from 'redux'
 
 import {
-  networkReducer,
-  initialState as networkInitialState
-} from './networkReducer'
+  peopleReducer,
+  initialState as peopleInitialState
+} from './peopleReducer'
 
 export const initialState = {
-  network: networkInitialState,
+  people: peopleInitialState,
 }
 
 const combined = combineReducers({
-  network: networkReducer,
+  people: peopleReducer,
 })
 
 export const rootReducer = (state = initialState, action) => {

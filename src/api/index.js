@@ -1,3 +1,3 @@
 // api/index.js
 
-export * from './data'
+export * from './people'

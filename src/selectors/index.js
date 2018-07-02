@@ -1,4 +1,4 @@
 // selectors/index.js
 
-export * from './networkSelectors'
+export * from './peopleSelectors'
 

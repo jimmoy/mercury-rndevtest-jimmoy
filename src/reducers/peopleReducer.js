@@ -1,50 +1,50 @@
-// networkReducer.js
-// Reducer at <root>/network
+// peopleReducer.js
+// Reducer at <root>/people
 //
-// The network/data state has some state information as well as the precise form
+// The people/data state has some state information as well as the precise form
 // of the JSON response of the API request made to fetch data:
 //
-//   data: {
+//   people: {
 //     status: 'request'
 //     response: {
 //       response_code: 0,
 //       results: [
-//         { category: "...", question: "..." },
-//         { category: "...", question: "..." },
+//         { name: "...", species: "..." },
+//         { name: "...", species: "..." },
 //         ...
 //       ]
 //     }
 //   }
 //
 // In more complex API situations, there would be other entries
-// in the state tree such as network/profile, network/saved, other
+// in the state tree such as people/profile, people/saved, other
 // things dictated by the semantics of the API.
 
 import { mergeDeepRight, path } from 'ramda'
 
 import {
-  NETWORK_DATA_REQUEST,
-  NETWORK_DATA_COMPLETE,
+  PEOPLE_DATA_REQUEST,
+  PEOPLE_DATA_COMPLETE,
 } from '../actions'
 
 export const initialState = {
   data: {},
 }
 
-export const networkReducer = (state = initialState, action) => {
+export const peopleReducer = (state = initialState, action) => {
   //
-  // Handle all 'NETWORK/*' actions
+  // Handle all 'PEOPLE/*' actions
   //
   switch (action.type) {
-    case NETWORK_DATA_REQUEST:
-      // Nothing but the message, indicating the network
+    case PEOPLE_DATA_REQUEST:
+      // Nothing but the message, indicating the people
       // request has been made and now we're waiting
       return mergeDeepRight(state, {
         data: {
           status: 'request'
         }
       })
-    case NETWORK_DATA_COMPLETE: {
+    case PEOPLE_DATA_COMPLETE: {
       return mergeDeepRight(state, {
         data: {
           status: 'complete',

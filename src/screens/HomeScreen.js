@@ -9,8 +9,7 @@ import { fetchData } from '../api'
 import { BaseScreen } from './common'
 import { HomeView } from '../views'
 import {
-  selectNetworkDataReady,
-  selectNetworkDataResponseResults
+  selectPeopleDataResponseResults
 } from '../selectors'
 
 class HomeComponent extends BaseScreen {
@@ -31,7 +30,7 @@ class HomeComponent extends BaseScreen {
 // Screen-specific selectors
 
 const selectDisplayData = createSelector(
-  selectNetworkDataResponseResults,
+  selectPeopleDataResponseResults,
   (results) => {
     return results ? results : []
   }
@@ -46,7 +45,7 @@ export const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    // This is where the network request to swapi gets kicked off
+    // This is where the people request to swapi gets kicked off
     reset: () => fetchData(dispatch),
 
     onClick: () => {

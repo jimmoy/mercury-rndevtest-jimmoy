@@ -1,8 +1,8 @@
-import { initialState, networkReducer as reducer } from '../networkReducer'
-import * as net from '../../actions/networkActions'
+import { initialState, peopleReducer as reducer } from '../peopleReducer'
+import * as people from '../../actions/peopleActions'
 import { merge } from 'ramda'
 
-describe('network reducer', () => {
+describe('people reducer', () => {
 
   it('returns initial state', () => {
     expect(reducer(undefined, {})).toEqual(initialState)
@@ -10,7 +10,7 @@ describe('network reducer', () => {
 
   it('returns successful state', () => {
     const testCase = reducer(initialState, {
-      type: net.NETWORK_DATA_REQUEST,
+      type: people.PEOPLE_DATA_REQUEST,
     })
     const expected = {
       data: {

@@ -1,16 +1,16 @@
 import {
-  networkRequest,
-  networkComplete,
+  peopleRequest,
+  peopleComplete,
 } from '../actions'
 
 export const fetchData = async (dispatch) => {
   try {
     const url = 'https://swapi.co/api/people/?page=1'
-    dispatch(networkRequest())
+    dispatch(peopleRequest())
     const response = await fetch(url)
     const json = await response.json()
-    dispatch(networkComplete(json, null))
+    dispatch(peopleComplete(json, null))
   } catch (err) {
-    dispatch(networkComplete(null, err))
+    dispatch(peopleComplete(null, err))
   }
 }
