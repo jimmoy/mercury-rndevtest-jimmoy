@@ -1,2 +1,3 @@
-# mercury-rndevtest-jimmoy
-React Native developer test for Mercury New Media
+# MercuryJimmoyRNDevTest
+
+Initial commit, got some names up on screen, both platforms
