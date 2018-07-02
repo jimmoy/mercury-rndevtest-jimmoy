@@ -1,13 +1,18 @@
 // HomeView.js
 
 import React, { Component } from 'react'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {
+  Dimensions,
   Text,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
   View
 } from 'react-native'
+
+const deviceWidth = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
   root: {
@@ -16,19 +21,45 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'flex-start',
     alignItems: 'center',
+    backgroundColor: '#ffffff',
+  },
+  scroll: {
+    width: deviceWidth,
+    // backgroundColor: '#ee8888',
   },
   peopleContainer: {
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
   },
+  personInfo: {
+    marginLeft: 8,
+    flexDirection: 'column',
+  },
+  personMeta: {
+    flexDirection: 'row',
+  },
   personContainerEven: {
+    padding: 12,
+    flexDirection: 'row',
     backgroundColor: '#dddddd',
   },
   personContainerOdd: {
+    padding: 12,
+    flexDirection: 'row',
     backgroundColor: '#ffffff',
   },
+  icon: {
+    paddingTop: 6,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
   person: {
-    fontSize: 18,
+    fontSize: 30,
+    marginBottom: 10,
+  },
+  meta: {
+    fontSize: 12,
+    fontWeight: 'bold',
   },
   button: {
     fontSize: 16,
@@ -37,27 +68,35 @@ const styles = StyleSheet.create({
   },
 })
 
-export const OnePerson = ({ person }) =>
-  <View style={styles.personContainer}>
-    <Text style={styles.person}>{person.name}</Text>
+export const OnePerson = ({ person, styleName }) =>
+  <View style={styles[styleName]}>
+    <View style={styles.icon}>
+      <Icon name={'user-circle'} color='#333333' size={30} />
+    </View>
+    <View style={styles.personInfo}>
+      <Text style={styles.person}>{person.name}</Text>
+      <View style={styles.personMeta}>
+        <Text style={styles.meta}>HEIGHT: {person.height} {'\u2022'}&nbsp;</Text>
+        <Text style={styles.meta}>MASS: {person.mass} {'\u2022'}&nbsp;</Text>
+        <Text style={styles.meta}>GENDER: {person.gender.toUpperCase()}</Text>
+      </View>
+    </View>
   </View>
 
-const rowStyleSuffix = n => (n % 2 === 0) ? 'Even' : 'Odd'
+const rowStyleSuffix = n => (n % 2 === 0) ? 'Odd' : 'Even'
 
 export const PeopleList = ({ people }) =>
   people.map((person, index) => {
     const styleName = `personContainer${rowStyleSuffix(index)}`
-    return (
-      <View key={person.name} style={styles[styleName]}>
-        <Text style={styles.person}>{person.name}</Text>
-      </View>
-      )
+    return <OnePerson styleName={styleName} person={person} key={person.name} />
   })
 
 export const HomeView  = ({ data, onClick }) =>
   <View style={styles.root}>
     <View style={styles.peopleContainer}>
-      <PeopleList people={data} />
+      <ScrollView style={styles.scroll}>
+        <PeopleList people={data} />
+      </ScrollView>
     </View>
     <TouchableOpacity onPress={onClick}>
       <Text style={styles.button}>Button</Text>
