@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { path } from 'ramda'
 
 import {
   Dimensions,
@@ -68,10 +69,10 @@ const styles = StyleSheet.create({
   },
 })
 
-export const OnePerson = ({ person, styleName }) =>
+export const OnePerson = ({ person, speciesIcon, styleName }) =>
   <View style={styles[styleName]}>
     <View style={styles.icon}>
-      <Icon name={'user-circle'} color='#333333' size={30} />
+      <Icon name={speciesIcon} color='#333333' size={30} />
     </View>
     <View style={styles.personInfo}>
       <Text style={styles.person}>{person.name}</Text>
@@ -85,17 +86,29 @@ export const OnePerson = ({ person, styleName }) =>
 
 const rowStyleSuffix = n => (n % 2 === 0) ? 'Odd' : 'Even'
 
-export const PeopleList = ({ people }) =>
+export const PeopleList = ({ people, species }) =>
   people.map((person, index) => {
     const styleName = `personContainer${rowStyleSuffix(index)}`
-    return <OnePerson styleName={styleName} person={person} key={person.name} />
+    const speciesUrl = path(['species', 0], person)
+    const speciesName = path([speciesUrl, 'name'], species)
+    const speciesIcon = (speciesName === 'Human')
+      ? 'android'
+      : ((speciesName === 'Droid')
+        ? 'user-circle'
+        : 'question'
+      )
+    return (
+      <OnePerson styleName={styleName} person={person} 
+        speciesIcon={speciesIcon} key={person.name}
+      />
+    )
   })
 
-export const HomeView  = ({ data, onClick }) =>
+export const HomeView  = ({ data, species, onClick }) =>
   <View style={styles.root}>
     <View style={styles.peopleContainer}>
       <ScrollView style={styles.scroll}>
-        <PeopleList people={data} />
+        <PeopleList people={data} species={species} />
       </ScrollView>
     </View>
     <TouchableOpacity onPress={onClick}>

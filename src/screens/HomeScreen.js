@@ -9,7 +9,8 @@ import { fetchData } from '../api'
 import { BaseScreen } from './common'
 import { HomeView } from '../views'
 import {
-  selectPeopleDataResponseResults
+  selectPeopleDataResponseResults,
+  selectSpeciesByUrl,
 } from '../selectors'
 
 class HomeComponent extends BaseScreen {
@@ -39,6 +40,7 @@ const selectDisplayData = createSelector(
 export const mapStateToProps = (state, ownProps) => {
   const results = {
     data: selectDisplayData(state),
+    species: selectSpeciesByUrl(state),
   }
   return results
 }
